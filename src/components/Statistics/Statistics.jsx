@@ -1,10 +1,7 @@
 import { StatisticContainer, StatisticName, StatisticResult } from "./Statistics.styled";
 
-const Statistic = ({
-  state: { good, neutral, bad },
-  countTotalFeedback,
-  countPositiveFeedback,
-}) => {
+const Statistic = ({ good, neutral, bad, countTotalFeedback,
+  countPositiveFeedback, }) => {
   return (
     <StatisticContainer>
       <StatisticName>

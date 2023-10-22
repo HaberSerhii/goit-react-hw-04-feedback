@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import Feedback from './Feedback/Feedback';
 import Sections from './Section/Section';
 import Notification from './Notification/Notifications';
@@ -32,30 +32,29 @@ export const App = () => {
     return Math.round((good / totalFeedback) * 100);
   };
 
-  const values = Object.keys({good, neutral, bad});
-  const isfeedBack = Object.values({good, neutral, bad}).every(value => value === 0);
-    return (
-      <MainSection>
-        <Sections title="Please leave feedback">
-          <Feedback values={values} countFeedbacks={countFeedbacks} />
-        </Sections>
+  const values = Object.keys({ good, neutral, bad });
+  const isfeedBack = Object.values({ good, neutral, bad }).every(value => value === 0);
+  return (
+    <MainSection>
+      <Sections title="Please leave feedback">
+        <Feedback values={values} countFeedbacks={countFeedbacks} />
+      </Sections>
 
-        {!isfeedBack ? (
-          <Sections title="Statistic">
-            <Statistic
-              good={good}
-              neutral={neutral}
-              bad={bad}
-              countTotalFeedback={countTotalFeedback}
-              countPositiveFeedback={countPositiveFeedbackPercentage}
-            />
-          </Sections>
-        ) : (
-          <Sections>
-            <Notification message="Click the button and share your experience using this app." />
-          </Sections>
-        )}
-      </MainSection>
-    );
-  }
-}
+      {!isfeedBack ? (
+        <Sections title="Statistic">
+          <Statistic
+            good={good}
+            neutral={neutral}
+            bad={bad}
+            countTotalFeedback={countTotalFeedback}
+            countPositiveFeedback={countPositiveFeedbackPercentage}
+          />
+        </Sections>
+      ) : (
+        <Sections>
+          <Notification message="Click the button and share your experience using this app." />
+        </Sections>
+      )}
+    </MainSection>
+  );
+};
