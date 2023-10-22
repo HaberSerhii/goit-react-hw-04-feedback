@@ -5,37 +5,25 @@ import Notification from './Notification/Notifications';
 import Statistic from './Statistics/Statistics';
 import { MainSection } from "./App.styled";
 export const App = () => {
-  const [good, setGood] = useState(0);
-  const [neutral, setNeutral] = useState(0);
-  const [bad, setBad] = useState(0);
+  const [statistics, setStatistics] = useState({
+    good: 0,
+    neutral: 0,
+    bad: 0,
+  });
+  const countFeedbacks = (button) => {
+    if (!(button in statistics)) {
+      return
+    };
 
-
-  const countFeedbacks = button => {
-    switch (button) {
-      case 'good':
-        setGood(prevGood => prevGood + 1);
-        break;
-      case 'neutral':
-        setNeutral(prevNeutral => prevNeutral + 1);
-        break;
-      case 'bad':
-        setBad(prevBad => prevBad + 1);
-        break;
-      default:
-        break;  
-    }
-  }
-  const countTotalFeedback = () => {
-    return good + neutral + bad;
+    setStatistics(prevStatistics => ({
+      ...prevStatistics,
+      [button]: prevStatistics[button] + 1
+    }));
   };
 
-  const countPositiveFeedbackPercentage = () => {
-    const totalFeedback = countTotalFeedback();
-    return Math.round((good / totalFeedback) * 100);
-  };
-
-  const values = Object.keys({ good, neutral, bad });
-  const isfeedBack = Object.values({ good, neutral, bad }).every(value => value === 0);
+  const values = Object.keys(statistics);
+  const isfeedBack = Object.values(statistics).every(value => value === 0);
+  
   return (
     <MainSection>
       <Sections title="Please leave feedback">
@@ -45,11 +33,9 @@ export const App = () => {
       {!isfeedBack ? (
         <Sections title="Statistic">
           <Statistic
-            good={good}
-            neutral={neutral}
-            bad={bad}
-            countTotalFeedback={countTotalFeedback}
-            countPositiveFeedback={countPositiveFeedbackPercentage}
+            good={statistics.good}
+            neutral={statistics.neutral}
+            bad={statistics.bad}
           />
         </Sections>
       ) : (

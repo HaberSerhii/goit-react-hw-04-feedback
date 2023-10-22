@@ -1,7 +1,14 @@
 import { StatisticContainer, StatisticName, StatisticResult } from "./Statistics.styled";
 
-const Statistic = ({ good, neutral, bad, countTotalFeedback,
-  countPositiveFeedback, }) => {
+const Statistic = ({ good, neutral, bad }) => {
+   const countTotalFeedback = () => {
+    return good + neutral + bad;
+  };
+
+  const countPositiveFeedback = () => {
+    const totalFeedback = countTotalFeedback();
+    return Math.round((good / totalFeedback) * 100);
+  };
   return (
     <StatisticContainer>
       <StatisticName>
